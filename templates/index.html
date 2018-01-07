@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Great Number Game</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>Welcome to the Great Number Game!</h2>
+        <p>I am thinking of a number between 1 and 100</p>
+        <p>Take a guess!</p>
+        {% if response == "start": %} <!-- if statement start -->
+        <form action = "/guess" method="post">
+            <input type = "text" name = "guess">
+            <button>Submit</button>
+        </form>
+        
+        <!-- correct response -->
+        {% elif response == "correct": %}
+        <div id ="correct">
+            <h1>{{session["randomNum"]}} was the number!</h1>
+            <form action="/reset">
+                <button>Play again!</button>
+            </form>
+        </div>
+        <!-- too high -->
+        {% elif response == "high": %}
+        <h1 class="incorrect_box">Too high!</h1>
+        <form action = "/guess" method="post">
+            <input type = "text" name = "guess">
+            <button>Submit</button>
+        </form>
+
+        <!-- too low -->
+        {% elif response == "low": %}
+        <h1 class="incorrect_box">Too low!</h1>
+        <form action = "/guess" method="post">
+            <input type = "text" name = "guess">
+            <button>Submit</button>
+        </form>
+        
+        {% endif %} <!-- if statement end -->
+    </div>
+</body>
